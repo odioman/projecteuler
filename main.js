@@ -114,3 +114,40 @@ function largestPrimeFactor(n) {
     console.log(i)
   
 }
+
+/* Problem 4 Largest Palindrome Product */
+
+function isPalindrome(pCheck) {
+    let reversed = 0;
+    let temp = pCheck;
+    while (temp > 0) {
+        let lastDigit = temp % 10;
+        reversed = reversed * 10 + lastDigit;
+        temp = parseInt(temp/10);
+    }
+    return pCheck === reversed;
+}
+
+function largestPalindromeProduct(n) {
+    return bruteForce(n)
+}
+
+function bruteForce(n) {
+    let largestNum = Math.pow(10,n) - 1;
+    let smallestNum = Math.pow(10, (n-1));
+    let largestPalindrome = 0;
+
+    for (let i = largestNum; i > smallestNum; i--) {
+        for (let j = i; j > smallestNum; j--) {
+            let number = i * j;
+            if (isPalindrome(number) && number > largestPalindrome) {
+                largestPalindrome = number;
+                if (j > smallestNum) {
+                    smallestNum = j;
+                }
+                break;
+            }
+        }
+    }
+    return largestPalindrome;
+}
